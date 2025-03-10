@@ -19,12 +19,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Adapted from https://stackoverflow.com/a/58393457/1902058
+      - name: Create report file
+        run: date +%s > report.txt
+      - name: Commit report
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          git config --global user.name 'CI'
+          git config --global user.email 'ci-test-only-doesnt-exist@dissolutegames.com'
+          git commit -am "Automated report"
+          git push
